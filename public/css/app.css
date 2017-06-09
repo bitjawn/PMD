@@ -1,6 +1,8 @@
 /* Global */
 body {
 	font-family: "Comic Sans MS", cursive, sans-serif;
+	font-size: 16px;
+	line-height: 1.7em;
 }
 
 .border {
@@ -37,9 +39,8 @@ body {
 }
 
 .sub-header {
-	font-weight: bold;
 	font-family: fantasy, georgia, serif, "sans serif", inherit;
-	font-size: 28pt;
+	font-size: 18pt;
 	text-align: center;
 	color: rgb(79,125,100);
 }
