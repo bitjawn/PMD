@@ -1,0 +1,84 @@
+
+<div class="title-bar" data-responsive-toggle="main-menu" data-hide-for="medium">
+	<button class="menu-icon" type="button" data-toggle="main-menu"></button>
+	<div class="title-bar-title">Menu</div>
+</div>
+
+
+{{#if login}}
+
+<div class="top-bar" id="main-menu">
+	<div class="top-bar-left">
+		<ul class="dropdown menu" data-responsive-menu="drilldown medium-dropdown">
+			<li class="menu-text">
+				{{session.req.user.fname}}
+			</li>
+			<li class="invisible user-id" data-user="{{session.req.user.id}}">{{session.req.user.fname}}</li>
+			<li>
+				<a href="/">Site</a>
+				<ul class="menu vertical">
+					<li><a href="/">Home</a></li>
+					<li><a href="/about">About</a></li>
+					<li><a href="/contact">Contact</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	<div class="top-bar-right">
+		<ul class="dropdown menu" data-responsive-menu="drilldown medium-dropdown">
+			<li>
+				<a href="/articles/list">Browse</a>
+				<ul class="menu vertical">
+					<li><a href="/articles/">Articles</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">User</a>
+				<ul class="menu vertical">
+					<li><a href="/users/signout">Sign Out</a></li>
+					<li><a href="/users/profile">Profile</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+</div>
+
+
+{{else}}
+
+
+<div class="top-bar" id="main-menu">
+	<div class="top-bar-left">
+		<ul class="dropdown menu" data-responsive-menu="drilldown medium-dropdown">
+			<li class="menu-text">
+				Dashboard
+			</li>
+			<li>
+				<a href="/">Site</a>
+				<ul class="menu vertical">
+					<li><a href="/">Home</a></li>
+					<li><a href="/about">About</a></li>
+					<li><a href="/contact">Contact</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	<div class="top-bar-right">
+		<ul class="dropdown menu" data-responsive-menu="drilldown medium-dropdown">
+			<li>
+				<a href="/articles/list">Browse</a>
+				<ul class="menu vertical">
+					<li><a href="/articles/list">Articles</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">User</a>
+				<ul class="menu vertical">
+					<li><a href="/users/signin">Sign In</a></li>
+					<li><a href="/users/signup">Sign Up</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+</div>
+{{/if}}
