@@ -67,6 +67,14 @@ router.post('/add', (req, res) => {
 
 });
 
+// edit
+router.get();
+
+router.post();
+
+// delete
+router.delete();
+
 module.exports = router;
 
 function log(data) {
