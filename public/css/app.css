@@ -42,18 +42,18 @@ body {
 	padding: 10px;
 }
 
-.add-article,
-.search-articles,
-.view-article,
-.edit-article,
-.delete-article,
+.add-profile,
+.search-profiles,
+.view-profile,
+.edit-profile,
+.delete-profile,
 .cancel-edit {
 	width: 15%;
 	margin:25px;
 	font-weight: bold;
 }
 
-.article-list {
+.profile-list {
 	margin-top:10px;
 	padding-left:25px;
 	padding-right:25px;

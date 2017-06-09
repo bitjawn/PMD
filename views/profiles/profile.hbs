@@ -1,0 +1,22 @@
+{{#if login}}
+
+<div class="row v-scroll list">
+	<div class="card">
+		<div class="card-divider">
+			<h4 class="header">{{profile.title}}</h4>
+			<p style="text-align:left; margin:0; padding:0;">
+				Author: {{profile.author}}</br>
+				Posted: {{profile.postDate}} @ {{profile.postTime}}
+				{{#if profile.url}}
+			</br>URL: {{profile.url}}
+			{{/if}}
+		</p>
+	</div>
+
+	<div class="card-section">
+		{{profile.description}}
+	</div>
+</div>
+</div>
+
+{{/if}}

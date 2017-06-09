@@ -1,0 +1,85 @@
+{{#if hasWarning}}
+	{{#each warning}}
+		<div class="warning callout" data-closable style="margin:10px;">
+			<p>{{.}}</p>
+			<button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+			 <span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+	{{/each}}
+{{/if}}
+
+{{#if hasSuccess}}
+	{{#each success}}
+		<div class="success callout" data-closable style="margin:10px;">
+			<p>{{.}}</p>
+			<button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+			 <span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+	{{/each}}
+{{/if}}
+
+{{#if hasError}}
+	{{#each error}}
+		<div class="alert callout" data-closable style="margin:10px;">
+			<p>{{.}}</p>
+			<button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+			 <span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+	{{/each}}
+{{/if}}
+
+<div class="row profile-list">
+	<a href="#addProfile" class="button left-floater add-profile" data-toggle="addProfile">Add Profile</a>
+	<a href="#" class="button right-floater search-profiles" data-toggle="searchProfiles">Search Profiles</a>
+</div>
+
+<div class="row v-scroll list">
+	<ul class="accordion" data-accordion data-allow-all-closed="true" data-multi-expand="false">
+		{{#each profiles}}
+			<li class="accordion-item" data-accordion-item>
+				<a href="#{{id}}" class="accordion-title">{{title}}</a>
+				<div class="accordion-content" data-tab-content id="{{id}}">
+					<div class="card">
+						<div class="card-divider">
+							<h4 class="header">{{title}}</h4>
+							<p style="text-align:left; margin:0; padding:0;">
+								Posted: &nbsp; {{postDate}}
+							</p>
+						</div>
+
+						<div class="card-section">
+							{{description}}
+						</div>
+
+						<div class="card-section">
+							<a data-id="{{id}}" class="center-floater button primary view-profile">View {{title}}</a>
+						</div>
+					</div>
+				</div>
+			</li>
+		{{/each}}
+	</ul>
+</div>
+
+<div class="row">
+	<div class="off-canvas-wrapper" style="background-color:black; color:white;">
+		<div class="off-canvas position-left search" style="background-color:rgb(4,1,1); color:rgb(250,250,255);" id="searchProfiles" data-off-canvas>
+			<h4 class="header" style="color:rgb(250,250,255);">Search Profiles</h4>
+				{{> searchProfiles }}
+		</div>
+		<div class="off-canvas-content"  data-off-canvas-content></div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="off-canvas-wrapper" style="background-color:black; color:white;">
+		<div class="off-canvas position-right search" style="background-color:rgb(4,1,1); color:rgb(250,250,255);" id="addProfile" data-off-canvas>
+			<h4 class="header" style="color:rgb(250,250,255);">Add Profile</h4>
+			{{> addProfile }}
+		</div>
+		<div class="off-canvas-content"  data-off-canvas-content></div>
+	</div>
+</div>
