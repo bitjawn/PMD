@@ -28,5 +28,10 @@
 		<div class="card-section">
 			{{profile.description}}
 		</div>
+
+		<div class="card-section">
+			<a href="/profiles/profile/edit/{{profile.id}}" class="button edit-profile left-floater">Edit {{profile.title}}</a>
+			<a href="#" data-id="{{profile.id}}" class="button alert delete-profile right-floater">Delete {{profile.title}}</a>
+		</div>
 	</div>
 </div>

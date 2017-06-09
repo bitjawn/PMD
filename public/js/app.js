@@ -35,16 +35,16 @@ $(document)
     });
   });
 
-  $('.delete-article').on('click', function(){
-    $aId = $(this).data('id');
-    $url = '/articles/article/delete/' + $aId;
+  $('.delete-profile').on('click', function(){
+    $pId = $(this).data('id');
+    $url = '/profiles/profile/delete/' + $pId;
 
     if (confirm('Are you sure you want to delete this article?')) {
       $.ajax({
         url:$url,
         type:'DELETE',
         success:function(response) {
-          window.location.href = '/articles/list';
+          window.location.href = '/profiles';
         },
         error: function(err) {
           console.log(err);

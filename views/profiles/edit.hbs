@@ -1,51 +1,75 @@
 <div class="row">
-	<h4 class="header">Editing {{article.title}}</h4>
-	<form method="POST" action="/articles/article/edit/{{article.id}}" style="margin:35px;">
+	<h4 class="header">Editing {{profile.title}}</h4>
+	<form method="POST" action="/profiles/profile/edit/{{profile.id}}" style="margin:35px; color:rgb(250,250,255);">
 		<div class="input-group">
 			<span class="input-group-label">
 				<i class="fa fa-header"></i>
 			</span>
-			<input type="text" name="title" class="input-group-field" value="{{article.title}}" required placeholder="Title">
+			<input type="text" name="title" class="input-group-field" value="{{profile.title}}" required>
+		</div>
+
+		<div class="input-group">
+			<span class="input-group-label">
+				<i class="fa fa-user"></i>
+			</span>
+			<input type="text" name="username" class="input-group-field" value="{{profile.username}}">
+		</div>
+
+		<div class="input-group">
+			<span class="input-group-label">
+				<i class="fa fa-unlock"></i>
+			</span>
+			<input type="text" name="password" class="input-group-field" value="{{profile.password}}">
+		</div>
+
+		<div class="input-group">
+			<span class="input-group-label">
+				<i class="fa fa-envelope"></i>
+			</span>
+			<input type="email" name="email" class="input-group-field" value="{{profile.email}}">
 		</div>
 
 		<div class="input-group">
 			<span class="input-group-label">
 				<i class="fa fa-globe"></i>
 			</span>
-			<input type="text" name="url" class="input-group-field" value="{{article.url}}" placeholder="URL">
+			<input type="text" name="url" class="input-group-field" value="{{profile.url}}">
 		</div>
 
 		<div class="input-group">
 			<span class="input-group-label">
-				<i class="fa fa-edit"></i>
+				<i class="fa fa-tag"></i>
 			</span>
-			<textarea type="text" name="body" class="input-group-field" value="{{article.body}}" required>{{article.body}}</textarea>
+			<textarea name="description" class="input-group-field" value="{{profile.description}}" required></textarea>
 		</div>
 
 		<div class="input-group">
 			<span class="input-group-label">
-				<i class="fa fa-check"></i>
-			</span>&nbsp;
-			<input type="checkbox" name="show" class="input-group-field edit-show" value="Keep private"> Keep private
+				<i class="fa fa-sitemap"></i>
+			</span>
+			<input type="text" name="organization" class="input-group-field" value="{{profile.organization}}">
 		</div>
 
-		<input type="hidden" name="private" class="input-group-field edit-private" value="{{article.private}}">
-		<input type="hidden" name="author" class="input-group-field" value="{{article.author}}">
-		<input type="hidden" name="postDate" class="input-group-field" value="{{article.postDate}}">
-		<input type="hidden" name="postTime" class="input-group-field" value="{{article.postTime}}">
+		<div class="input-group">
+			<span class="input-group-label">
+				<i class="fa fa-calendar-o"></i>
+			</span>
+			<input type="text" name="postDate" class="input-group-field" value="{{profile.postDate}}">
+		</div>
+
+		<div class="input-group">
+			<span class="input-group-label">
+				<i class="fa fa-date"></i>
+			</span>
+			<input type="text" name="postTime" class="input-group-field" value="{{profile.postTime}}">
+		</div>
+
+		<input type="hidden" name="author" class="input-group-field" required>
 
 		<div class="input-group-button">
-			<input type="submit" class="button left-floater edit-article" value="Submit">
-			<input type="button" data-id="{{article.id}}" class="button success right-floater cancel-edit" value="Cancel">
+			<input type="submit" class="button left-floater" value="Submit">
+			<a href="#" class="button success right-floater cancel-edit">Cancel</a>
 		</div>
-
-		<script>
-			$('.edit-show').prop('checked', $('.edit-private').val());
-
-			$('.edit-show').change(function(){
-				$('.edit-private').val($(this).is(':checked'));
-			});
-		</script>
 
 	</form>
 </div>

@@ -5,12 +5,12 @@ const cfc = require('../../modules/cfc');
 const strU = require('../../modules/strUtils');
 
 // list
-router.get('/', (req, res) => {
+router.get('/', isLoggedIn, (req, res) => {
 	let success = req.flash('success') || [];
 	let error = req.flash('errors') || [];
 	let warning = req.flash('warnings') || [];
 
-	Profile.find({}, (err, profiles) => {
+	Profile.findByAuthor(req.user.id, (err, profiles) => {
 		res.render('profiles/list', {
 			title:cfc('profiles'),
 			profiles:profiles,
@@ -35,7 +35,7 @@ router.get('/profile/:id', (req, res) => {
 });
 
 // add
-router.post('/add', (req, res) => {
+router.post('/add', isLoggedIn, (req, res) => {
 	let title = req.body.title;
 	let uname = req.body.username || '';
 	let pwd = req.body.password || '';
@@ -54,6 +54,7 @@ router.post('/add', (req, res) => {
 	profile.postDate = postDate();
 	profile.postTime = postTime();
 	profile.organization = organization;
+	profile.author = req.user.id;
 
 	profile.save(function(err){
 		if (err) {
@@ -68,12 +69,52 @@ router.post('/add', (req, res) => {
 });
 
 // edit
-router.get();
+router.get('/profile/edit/:id', isLoggedIn, (req, res) => {
+	Profile.findById(req.params.id, (err, profile) => {
+		if (err) {
+			console.log(err);
+			return;
+		}
+		res.render('/profiles/edit', {title:cfc(profile.title), profile:profile});
+	});
+});
 
-router.post();
+router.post('/profile/edit/:id', (req, res) => {
+	let profile = {};
+	profile.title = req.body.title;
+	profile.username = req.body.username || '';
+	profile.password = req.body.password || '';
+	profile.email = req.body.email || '';
+	profile.url = req.body.url || '';
+	profile.description = req.body.description;
+	profile.postDate = req.body.postDate;
+
+	let query = {_id:req.params.id};
+
+	Profile.update(query, profile, (err) => {
+		if (err) {
+			console.log(err);
+			return;
+		} else {
+			req.flash('success', req.body.title + ' updated');
+			res.redirect('/profiles');
+		}
+	});
+});
 
 // delete
-router.delete();
+router.delete('/profile/delete/:id', isLoggedIn, (req, res) => {
+	let query = {_id:req.params.id};
+
+	Profile.remove(query, (err) => {
+		if (err) {
+			console.log(err);
+		} else {
+			req.flash('success', 'Profile deleted');
+			res.send('success');
+		}
+	});
+});
 
 module.exports = router;
 

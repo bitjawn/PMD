@@ -1,10 +1,77 @@
 const express = require('express');
 const router = express.Router();
+const cfc = require('../../modules/cfc');
+const csrf = require('csurf');
+const csrfProtection = csrf();
+const passport = require('passport');
 
 // user login
-router.get('/', (req, res) => {
-	res.send('login');
+router.get('/profile', isLoggedIn, (req, res) => {
+	let fname = req.user.fname;
+	let lname = req.user.lname;
+	let uname = req.user.uname;
+	let email = req.user.email;
+	let picture = req.user.picture || '';
+
+	res.render('users/profile', {
+		title:cfc(req.user.fname),
+		 fname:fname,
+		 lname:lname,
+		 uname:uname,
+		 email:email,
+		 picture:picture
+		});
 });
+
+
+// logout
+router.get('/signout', csrfProtection, isLoggedIn, function(req, res){
+	req.logout();
+	res.redirect('/users/signin');
+});
+
+// redirection
+router.get('/', notLoggedIn, (req, res, next) => {
+	next();
+});
+
+// signin
+router.get('/signin', csrfProtection, (req, res) => {
+	let messages = req.flash('errors') || [];
+
+	res.render('users/signin', {
+		title:cfc('signin'),
+		csrfToken:req.csrfToken(),
+		hasErrors:messages.length > 0,
+		errors:messages
+	});
+});
+
+router.post('/signin', csrfProtection, passport.authenticate('local.signin', {
+	successRedirect: '/users/profile',
+	failureRedirect: '/users/signin',
+	failureFlash: true
+}));
+
+// signup
+router.get('/signup', csrfProtection, (req, res) => {
+	let messages = req.flash('errors') || [];
+	res.render('users/signup', {
+		title:cfc('signup'),
+		csrfToken:req.csrfToken(),
+		isAdmin:false,
+		hasErrors:messages.length > 0,
+		errors:messages
+	});
+});
+
+router.post('/signup', csrfProtection, passport.authenticate('local.signup', {
+    successRedirect: '/users/signin',
+    failureRedirect: '/users/signup',
+    failureFlash: true
+}));
+
+
 
 module.exports = router;
 

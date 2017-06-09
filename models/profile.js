@@ -4,6 +4,7 @@ const mongoose = require('mongoose'),
 
 var profileSchema = new Schema({
     title: {type: String, required: true},
+    author: {type: String, required: true},
     username: {type: String, required: false, default: 'No username associated with this account'},
     password: {type: String, required: false, default: 'No password associated with this account'},
     email: {type: String, required: false, default: 'No email address associated with this account'},
@@ -28,6 +29,10 @@ profileSchema.statics.findByOrganization = function(keyword, cb) {
 
 profileSchema.statics.findByEmail = function(keyword, cb) {
   return this.find({org: new RegExp(keyword, 'i')}, cb);
+};
+
+profileSchema.statics.findByAuthor = function(keyword, cb) {
+  return this.find({author: keyword}, cb);
 };
 
 module.exports = mongoose.model('Profile', profileSchema);
