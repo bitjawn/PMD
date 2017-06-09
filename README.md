@@ -1,4 +1,4 @@
-# Express Passport Demo
+# Profile Manager Demo
 <p>A web application that allows the user to manage profiles of information.</p>
 
 <ul>
@@ -35,7 +35,7 @@
 
 ```bash
 # Installation
-clone https://github.com/bitjawn/EPD.git or download the zip
+clone https://github.com/bitjawn/PMD.git or download the zip
 
 npm install
 
