@@ -5,7 +5,7 @@ const mongoose = require('mongoose'),
 var profileSchema = new Schema({
     title: {type: String, required: true},
     author: {type: String, required: true},
-		body: {type: String, require: true},
+		description: {type: String, require: true},
 		postDate: {type: String, required: true},
 		postTime: {type: String, required: true},
     url: {type: String, required: false},
