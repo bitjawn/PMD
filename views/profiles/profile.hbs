@@ -1,22 +1,32 @@
-{{#if login}}
-
 <div class="row v-scroll list">
 	<div class="card">
 		<div class="card-divider">
 			<h4 class="header">{{profile.title}}</h4>
 			<p style="text-align:left; margin:0; padding:0;">
-				Author: {{profile.author}}</br>
-				Posted: {{profile.postDate}} @ {{profile.postTime}}
+				{{#if profile.username}}
+				Username: {{profile.username}}
+				{{/if}}
+				</br>
+				{{#if profile.password}}
+				Password: {{profile.password}}
+				{{/if}}
+				</br>
+				{{#if profile.email}}
+				Email: {{profile.email}}
+				{{/if}}
+				</br>
 				{{#if profile.url}}
-			</br>URL: {{profile.url}}
-			{{/if}}
-		</p>
-	</div>
+				URL: {{profile.url}}
+				{{/if}}
+				</br>
+				Organization: {{profile.organization}}
+				</br>
+				Posted: {{profile.postDate}} @ {{profile.postTime}}
+			</p>
+		</div>
 
-	<div class="card-section">
-		{{profile.description}}
+		<div class="card-section">
+			{{profile.description}}
+		</div>
 	</div>
 </div>
-</div>
-
-{{/if}}

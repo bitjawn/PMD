@@ -26,6 +26,10 @@ router.get('/', (req, res) => {
 // view
 router.get('/profile/:id', (req, res) => {
 	Profile.findById(req.params.id, (err, profile) => {
+		if (err) {
+			console.log(err);
+			return;
+		}
 		res.render('profiles/profile', {title:cfc(profile.title), profile:profile});
 	});
 });

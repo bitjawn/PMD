@@ -1,29 +1,22 @@
 $(document)
 .ready(function(){
-  $('.view-article').on('click', function(){
-    var $aId = $(this).data('id');
-    var $uId = $('.user-id').data('user');
-    var $IDs = $aId + ';' + $uId;
+  $('.view-profile').on('click', function(){
+    var $pId = $(this).data('id');
+    var $url = '/profiles/profile/' + $pId;
 
-    var $url = '/articles/article/' + $IDs;
+    // console.log('Profile ID: ' + $pId + '\tProfile URL: ' + $url);
 
     $.ajax({
       type:'GET',
       url:$url,
       success:function(response) {
-        window.location.href='article/' + $IDs;
+        window.location.href = '/profiles/profile/' + $pId;
       },
       error: function(err) {
         console.log(err);
       }
     });
 
-  });
-
-  // $('.private').val($('.show').is(':checked'));
-
-  $('.show').change(function(){
-    $('.private').val($(this).is(':checked'));
   });
 
   // $('.edit-private').val($('.edit-show').is(':checked'));
