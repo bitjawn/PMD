@@ -156,7 +156,7 @@ router.post('/search', isLoggedIn, (req, res) => {
 
 	switch (type) {
 		case 'title':
-			Profile.findByTitle(keyword, (err, prf) => {
+			Profile.findByTitle(keyword, req.user.id, (err, prf) => {
 				if (err) {
 					console.log(err);
 					return;

@@ -15,20 +15,20 @@ var profileSchema = new Schema({
 		organization: {type: String, required: true},
 });
 
-profileSchema.statics.findByTitle = function(keyword, cb) {
-  return this.findOne({title: new RegExp(keyword, 'i')}, cb);
+profileSchema.statics.findByTitle = function(keyword, uid, cb) {
+  return this.findOne({$and: [{title: new RegExp(keyword, 'i')}, {author: uid}]}, cb);
 };
 
-profileSchema.statics.findByUsername = function(keyword, cb) {
-  return this.find({username: new RegExp(keyword, 'i')}, cb);
+profileSchema.statics.findByUsername = function(keyword, uid, cb) {
+  return this.find({$and: [{username: new RegExp(keyword, 'i')}, {author: uid}]}, cb);
 };
 
-profileSchema.statics.findByOrganization = function(keyword, cb) {
-  return this.find({organization: new RegExp(keyword, 'i')}, cb);
+profileSchema.statics.findByOrganization = function(keyword, uid, cb) {
+  return this.find({$and: [{organization: new RegExp(keyword, 'i')}, {author: uid}]}, cb);
 };
 
-profileSchema.statics.findByEmail = function(keyword, cb) {
-  return this.find({email: new RegExp(keyword, 'i')}, cb);
+profileSchema.statics.findByEmail = function(keyword, uid, cb) {
+  return this.find({$and: [{email: new RegExp(keyword, 'i')}, {author: uid}]}, cb);
 };
 
 profileSchema.statics.findByAuthor = function(keyword, cb) {
