@@ -164,20 +164,24 @@ router.post('/search', isLoggedIn, (req, res) => {
 
 				if (null != prf && undefined != prf && 'undefined' != prf) {
 					User.findById(prf.author, (err, user) => {
-						let profile = {};
-						profile.title = prf.title;
-						profile.user = user.fname + ' ' + user.lname;
-						profile.username = prf.username || '';
-						profile.password = prf.password || '';
-						profile.email = prf.email || '';
-						profile.url = prf.url || '';
-						profile.description = prf.description;
-						profile.postDate = prf.postDate;
-						profile.postTime = prf.postTime;
-						profile.organization = prf.organization;
-						profile.id = prf.id;
+						if (err) {
+							console.log(err);
+						} else {
+							let profile = {};
+							profile.title = prf.title;
+							profile.user = user.fname + ' ' + user.lname;
+							profile.username = prf.username || '';
+							profile.password = prf.password || '';
+							profile.email = prf.email || '';
+							profile.url = prf.url || '';
+							profile.description = prf.description;
+							profile.postDate = prf.postDate;
+							profile.postTime = prf.postTime;
+							profile.organization = prf.organization;
+							profile.id = prf.id;
 
-						res.render('profiles/profile', {title:cfc(profile.title), profile:profile});
+							res.render('profiles/profile', {title:cfc(profile.title), profile:profile});
+					}
 					});
 				} else {
 					req.flash('warning', 'Profile not found: ' + keyword);
@@ -187,7 +191,44 @@ router.post('/search', isLoggedIn, (req, res) => {
 		break;
 
 		case 'organization':
+		Profile.findByOrganization(keyword, req.user.id, (err, prf) => {
+			if (err) {
+				console.log(err);
+				return;
+			}
 
+			if (null != prf && undefined != prf && 'undefined' != prf) {
+				let profiles = [];
+				for (var p in prf) {
+					let objP = prf[p];
+					let profile = {};
+
+					profile.title = objP.title;
+					profile.username = objP.username || '';
+					profile.password = objP.password || '';
+					profile.email = objP.email || '';
+					profile.url = objP.url || '';
+					profile.description = objP.description;
+					profile.postDate = objP.postDate;
+					profile.postTime = objP.postTime;
+					profile.organization = objP.organization;
+					profile.id = objP.id;
+
+					User.findById(req.user.id, (err, user) => {
+						if (err) {
+							console.log(err);
+							return;
+						} else {
+							profile.user = user.fname + ' ' + user.lname;
+						}
+					});
+					profiles.push(profile);
+				}
+
+				// render results
+				res.render('profiles/list', {title:cfc('profiles'), profiles:profiles});
+			}
+		});
 		break;
 	}
 });

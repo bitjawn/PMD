@@ -3,7 +3,7 @@ const mongoose = require('mongoose'),
     bcrypt = require('bcryptjs');
 
 var profileSchema = new Schema({
-    title: {type: String, required: true},
+    title: {type: String, unique: true, required: true},
     author: {type: String, required: true},
     username: {type: String, required: false, default: 'No username associated with this account'},
     password: {type: String, required: false, default: 'No password associated with this account'},
