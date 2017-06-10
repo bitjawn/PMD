@@ -40,7 +40,7 @@
 			<span class="input-group-label">
 				<i class="fa fa-tag"></i>
 			</span>
-			<textarea name="description" class="input-group-field" value="{{profile.description}}" required></textarea>
+			<textarea name="description" class="input-group-field" value="{{profile.description}}" required>{{profile.description}}</textarea>
 		</div>
 
 		<div class="input-group">
@@ -67,7 +67,7 @@
 		<input type="hidden" name="author" class="input-group-field" required>
 
 		<div class="input-group-button clearfix">
-			<input type="submit" class="button left-floater edit-profile" value="Submit">
+			<input type="submit" class="button warning left-floater edit-profile" value="Submit">
 			<input type="button" data-id="{{profile.id}}" class="button success right-floater cancel-edit" value="Cancel">
 		</div>
 
