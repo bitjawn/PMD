@@ -96,27 +96,12 @@ router.post('/add', isLoggedIn, (req, res) => {
 
 // edit
 router.get('/profile/edit/:id', isLoggedIn, (req, res) => {
-	Profile.findById(req.params.id, (err, prf) => {
+	Profile.findById(req.params.id, (err, profile) => {
 		if (err) {
 			console.log(err);
 			return;
 		}
-		User.findById(prf.author, (err, user) => {
-			let profile = {};
-			profile.title = prf.title;
-			profile.user = user.fname + ' ' + user.lname;
-			profile.username = prf.username || '';
-			profile.password = prf.password || '';
-			profile.email = prf.email || '';
-			profile.url = prf.url || '';
-			profile.description = prf.description;
-			profile.postDate = prf.postDate;
-			profile.postTime = prf.postTime;
-			profile.organization = prf.organization;
-			profile.id = prf.id;
-
-			res.render('profiles/edit', {title:cfc(profile.title), profile:profile});
-		});
+		res.render('profiles/edit', {title:cfc(profile.title), profile:profile});
 	});
 });
 
@@ -129,6 +114,9 @@ router.post('/profile/edit/:id', (req, res) => {
 	profile.url = req.body.url || '';
 	profile.description = req.body.description;
 	profile.postDate = req.body.postDate;
+	profile.postTime = req.body.postTime;
+	profile.author = req.body.author;
+	profile.organization = req.body.organization;
 
 	let query = {_id:req.params.id};
 

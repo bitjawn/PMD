@@ -50,21 +50,9 @@
 			<input type="text" name="organization" class="input-group-field" value="{{profile.organization}}">
 		</div>
 
-		<div class="input-group">
-			<span class="input-group-label">
-				<i class="fa fa-calendar-o"></i>
-			</span>
-			<input type="text" name="postDate" class="input-group-field" value="{{profile.postDate}}">
-		</div>
-
-		<div class="input-group">
-			<span class="input-group-label">
-				<i class="fa fa-date"></i>
-			</span>
-			<input type="text" name="postTime" class="input-group-field" value="{{profile.postTime}}">
-		</div>
-
-		<input type="hidden" name="author" class="input-group-field" required>
+		<input type="hidden" name="postDate" class="input-group-field" value="{{profile.postDate}}">
+		<input type="hidden" name="postTime" class="input-group-field" value="{{profile.postTime}}">
+		<input type="hidden" name="author" class="input-group-field" value="{{profile.author}}" required>
 
 		<div class="input-group-button clearfix">
 			<input type="submit" class="button warning left-floater edit-profile" value="Submit">
