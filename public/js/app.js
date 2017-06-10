@@ -19,10 +19,8 @@ $(document)
 
   });
 
-  // $('.edit-private').val($('.edit-show').is(':checked'));
-
   $('.cancel-edit').on('click', function(){
-    $url = '/articles/list';
+    $url = '/profiles/profile/' + $(this).data('id');
     $.ajax({
       url:$url,
       type:'GET',
@@ -53,10 +51,6 @@ $(document)
     }
   });
 
-  // $('.edit-show').change(function(){
-  //   $('.edit-private').val($(this).is(':checked'));
-  // });
-
   $('#textInput').on('click', function(){
     addTextInput();
   });
@@ -68,8 +62,6 @@ $(document)
   $('#emailInput').on('click', function(){
     addEmailInput();
   });
-
-
 
 })
 .foundation()

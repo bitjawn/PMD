@@ -7,8 +7,8 @@ const strU = require('../../modules/strUtils');
 // list
 router.get('/', isLoggedIn, (req, res) => {
 	let success = req.flash('success') || [];
-	let error = req.flash('errors') || [];
-	let warning = req.flash('warnings') || [];
+	let error = req.flash('error') || [];
+	let warning = req.flash('warning') || [];
 
 	Profile.findByAuthor(req.user.id, (err, profiles) => {
 		res.render('profiles/list', {
@@ -75,7 +75,7 @@ router.get('/profile/edit/:id', isLoggedIn, (req, res) => {
 			console.log(err);
 			return;
 		}
-		res.render('/profiles/edit', {title:cfc(profile.title), profile:profile});
+		res.render('profiles/edit', {title:cfc(profile.title), profile:profile});
 	});
 });
 
@@ -114,6 +114,35 @@ router.delete('/profile/delete/:id', isLoggedIn, (req, res) => {
 			res.send('success');
 		}
 	});
+});
+
+// search
+router.post('/search', isLoggedIn, (req, res) => {
+	let keyword = req.body.search;
+	let type = req.body.type;
+	let result = null;
+
+	switch (type) {
+		case 'title':
+			Profile.findByTitle(keyword, (err, profile) => {
+				if (err) {
+					console.log(err);
+					return;
+				}
+
+				if (null != profile && undefined != profile && 'undefined' != profile) {
+					res.render('profiles/profile', {title:cfc(profile.title), profile:profile});
+				} else {
+					req.flash('warning', 'Profile not found: ' + keyword);
+					res.redirect('/profiles');
+				}
+			});
+		break;
+
+		case 'organization':
+
+		break;
+	}
 });
 
 module.exports = router;

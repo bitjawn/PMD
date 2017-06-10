@@ -16,7 +16,7 @@ var profileSchema = new Schema({
 });
 
 profileSchema.statics.findByTitle = function(keyword, cb) {
-  return this.find({title: new RegExp(keyword, 'i')}, cb);
+  return this.findOne({title: new RegExp(keyword, 'i')}, cb);
 };
 
 profileSchema.statics.findByUsername = function(keyword, cb) {
@@ -24,11 +24,11 @@ profileSchema.statics.findByUsername = function(keyword, cb) {
 };
 
 profileSchema.statics.findByOrganization = function(keyword, cb) {
-  return this.find({org: new RegExp(keyword, 'i')}, cb);
+  return this.find({organization: new RegExp(keyword, 'i')}, cb);
 };
 
 profileSchema.statics.findByEmail = function(keyword, cb) {
-  return this.find({org: new RegExp(keyword, 'i')}, cb);
+  return this.find({email: new RegExp(keyword, 'i')}, cb);
 };
 
 profileSchema.statics.findByAuthor = function(keyword, cb) {
