@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Profile = require('../../models/profile');
+const User = require('../../models/user');
 const cfc = require('../../modules/cfc');
 const strU = require('../../modules/strUtils');
 
@@ -25,12 +26,28 @@ router.get('/', isLoggedIn, (req, res) => {
 
 // view
 router.get('/profile/:id', (req, res) => {
-	Profile.findById(req.params.id, (err, profile) => {
+	Profile.findById(req.params.id, (err, prf) => {
 		if (err) {
 			console.log(err);
 			return;
 		}
-		res.render('profiles/profile', {title:cfc(profile.title), profile:profile});
+
+		User.findById(prf.author, (err, user) => {
+			let profile = {};
+			profile.title = prf.title;
+			profile.user = user.fname + ' ' + user.lname;
+			profile.username = prf.username || '';
+			profile.password = prf.password || '';
+			profile.email = prf.email || '';
+			profile.url = prf.url || '';
+			profile.description = prf.description;
+			profile.postDate = prf.postDate;
+			profile.postTime = prf.postTime;
+			profile.organization = prf.organization;
+			profile.id = prf.id;
+
+			res.render('profiles/profile', {title:cfc(profile.title), profile:profile});
+		});
 	});
 });
 
@@ -70,12 +87,27 @@ router.post('/add', isLoggedIn, (req, res) => {
 
 // edit
 router.get('/profile/edit/:id', isLoggedIn, (req, res) => {
-	Profile.findById(req.params.id, (err, profile) => {
+	Profile.findById(req.params.id, (err, prf) => {
 		if (err) {
 			console.log(err);
 			return;
 		}
-		res.render('profiles/edit', {title:cfc(profile.title), profile:profile});
+		User.findById(prf.author, (err, user) => {
+			let profile = {};
+			profile.title = prf.title;
+			profile.user = user.fname + ' ' + user.lname;
+			profile.username = prf.username || '';
+			profile.password = prf.password || '';
+			profile.email = prf.email || '';
+			profile.url = prf.url || '';
+			profile.description = prf.description;
+			profile.postDate = prf.postDate;
+			profile.postTime = prf.postTime;
+			profile.organization = prf.organization;
+			profile.id = prf.id;
+
+			res.render('profiles/edit', {title:cfc(profile.title), profile:profile});
+		});
 	});
 });
 
@@ -124,14 +156,29 @@ router.post('/search', isLoggedIn, (req, res) => {
 
 	switch (type) {
 		case 'title':
-			Profile.findByTitle(keyword, (err, profile) => {
+			Profile.findByTitle(keyword, (err, prf) => {
 				if (err) {
 					console.log(err);
 					return;
 				}
 
-				if (null != profile && undefined != profile && 'undefined' != profile) {
-					res.render('profiles/profile', {title:cfc(profile.title), profile:profile});
+				if (null != prf && undefined != prf && 'undefined' != prf) {
+					User.findById(prf.author, (err, user) => {
+						let profile = {};
+						profile.title = prf.title;
+						profile.user = user.fname + ' ' + user.lname;
+						profile.username = prf.username || '';
+						profile.password = prf.password || '';
+						profile.email = prf.email || '';
+						profile.url = prf.url || '';
+						profile.description = prf.description;
+						profile.postDate = prf.postDate;
+						profile.postTime = prf.postTime;
+						profile.organization = prf.organization;
+						profile.id = prf.id;
+
+						res.render('profiles/profile', {title:cfc(profile.title), profile:profile});
+					});
 				} else {
 					req.flash('warning', 'Profile not found: ' + keyword);
 					res.redirect('/profiles');
