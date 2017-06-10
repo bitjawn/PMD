@@ -75,8 +75,17 @@ router.post('/add', isLoggedIn, (req, res) => {
 
 	profile.save(function(err){
 		if (err) {
-			console.log(err);
-			return;
+				switch (err.code.toString()) {
+					case '11000':
+						req.flash('error', 'Title already used');
+						res.redirect('/profiles');
+					break;
+
+					default:
+						req.flash('error', err.errmsg);
+						res.redirect('/profiles');
+					break;
+				}
 		} else {
 			req.flash('success', 'Profile Added');
 			res.redirect('/profiles');
