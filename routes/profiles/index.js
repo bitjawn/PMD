@@ -12,6 +12,9 @@ router.get('/', isLoggedIn, (req, res) => {
 	let warning = req.flash('warning') || [];
 
 	Profile.findByAuthor(req.user.id, (err, profiles) => {
+		if (err) {
+			log(err);
+		}
 		res.render('profiles/list', {
 			title:cfc('profiles'),
 			profiles:profiles,
@@ -28,7 +31,7 @@ router.get('/', isLoggedIn, (req, res) => {
 router.get('/profile/:id', (req, res) => {
 	Profile.findById(req.params.id, (err, prf) => {
 		if (err) {
-			console.log(err);
+			log(err);
 			return;
 		}
 
@@ -98,7 +101,7 @@ router.post('/add', isLoggedIn, (req, res) => {
 router.get('/profile/edit/:id', isLoggedIn, (req, res) => {
 	Profile.findById(req.params.id, (err, profile) => {
 		if (err) {
-			console.log(err);
+			log(err);
 			return;
 		}
 		res.render('profiles/edit', {title:cfc(profile.title), profile:profile});
@@ -122,7 +125,7 @@ router.post('/profile/edit/:id', (req, res) => {
 
 	Profile.update(query, profile, (err) => {
 		if (err) {
-			console.log(err);
+			log(err);
 			return;
 		} else {
 			req.flash('success', req.body.title + ' updated');
