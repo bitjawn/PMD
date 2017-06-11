@@ -4,6 +4,7 @@ const Profile = require('../../models/profile');
 const User = require('../../models/user');
 const cfc = require('../../modules/cfc');
 const strU = require('../../modules/strUtils');
+const chalk = require('chalk');
 
 // list
 router.get('/', isLoggedIn, (req, res) => {
@@ -247,13 +248,13 @@ function error(data) {
 			if (data instanceof Array) {
 				let objD = '';
 				for (var d in data) {
-					objD += d + ': ' + data[d] + '\n';
+					objD += chalk.white(d + ': ') + chalk.red(data[d]) + '\n';
 				}
 				log(objD);
 			} else if (data instanceof Object) {
 				let objE = '';
 				for (var d in data) {
-					objE = d + ': ' + data[d] + '\n';
+					objE = chalk.white(d + ': ') + chalk.red(data[d]) + '\n';
 				}
 				log(objE);
 			} else {
@@ -263,7 +264,7 @@ function error(data) {
 	} catch (err) {
 		let errMsg = '';
 		for (var e in err) {}
-			errMsg += e + ': ' + err[e] + '\n';
+			errMsg += chalk.white(e + ': ') + chalk.red(err[e]) + '\n';
 		}
 		log(errMsg);
 }
