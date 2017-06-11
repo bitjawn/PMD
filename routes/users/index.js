@@ -12,6 +12,7 @@ router.get('/profile', isLoggedIn, (req, res) => {
 	let uname = req.user.uname;
 	let email = req.user.email;
 	let picture = req.user.picture || '';
+	let greet = timeOfDay(req.user);
 
 	res.render('users/profile', {
 		title:cfc(req.user.fname),
@@ -19,7 +20,8 @@ router.get('/profile', isLoggedIn, (req, res) => {
 		 lname:lname,
 		 uname:uname,
 		 email:email,
-		 picture:picture
+		 picture:picture,
+		 greeting:greet
 		});
 });
 
