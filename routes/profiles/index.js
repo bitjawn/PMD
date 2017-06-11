@@ -13,7 +13,7 @@ router.get('/', isLoggedIn, (req, res) => {
 
 	Profile.findByAuthor(req.user.id, (err, profiles) => {
 		if (err) {
-			log(err);
+			error(err);
 		}
 		res.render('profiles/list', {
 			title:cfc('profiles'),
@@ -31,7 +31,7 @@ router.get('/', isLoggedIn, (req, res) => {
 router.get('/profile/:id', (req, res) => {
 	Profile.findById(req.params.id, (err, prf) => {
 		if (err) {
-			log(err);
+			error(err);
 			return;
 		}
 
@@ -101,7 +101,7 @@ router.post('/add', isLoggedIn, (req, res) => {
 router.get('/profile/edit/:id', isLoggedIn, (req, res) => {
 	Profile.findById(req.params.id, (err, profile) => {
 		if (err) {
-			log(err);
+			error(err);
 			return;
 		}
 		res.render('profiles/edit', {title:cfc(profile.title), profile:profile});
@@ -125,7 +125,7 @@ router.post('/profile/edit/:id', (req, res) => {
 
 	Profile.update(query, profile, (err) => {
 		if (err) {
-			log(err);
+			error(err);
 			return;
 		} else {
 			req.flash('success', req.body.title + ' updated');
@@ -140,7 +140,7 @@ router.delete('/profile/delete/:id', isLoggedIn, (req, res) => {
 
 	Profile.remove(query, (err) => {
 		if (err) {
-			console.log(err);
+			error(err);
 		} else {
 			req.flash('success', 'Profile deleted');
 			res.send('success');
@@ -158,7 +158,7 @@ router.post('/search', isLoggedIn, (req, res) => {
 		case 'title':
 			Profile.findByTitle(keyword, req.user.id, (err, prf) => {
 				if (err) {
-					console.log(err);
+					error(err);
 					return;
 				}
 
@@ -193,7 +193,7 @@ router.post('/search', isLoggedIn, (req, res) => {
 		case 'organization':
 		Profile.findByOrganization(keyword, req.user.id, (err, prf) => {
 			if (err) {
-				console.log(err);
+				error(err);
 				return;
 			}
 
@@ -216,7 +216,7 @@ router.post('/search', isLoggedIn, (req, res) => {
 
 					User.findById(req.user.id, (err, user) => {
 						if (err) {
-							console.log(err);
+							error(err);
 							return;
 						} else {
 							profile.user = user.fname + ' ' + user.lname;
@@ -239,6 +239,33 @@ function log(data) {
 	if (null != data && undefined != data && 'undefined' != data) {
 		console.log(data);
 	}
+}
+
+function error(data) {
+	try {
+		if (null != data && undefined != data && 'undefined' != data && '' != data) {
+			if (data instanceof Array) {
+				let objD = '';
+				for (var d in data) {
+					objD += d + ': ' + data[d] + '\n';
+				}
+				log(objD);
+			} else if (data instanceof Object) {
+				let objE = '';
+				for (var d in data) {
+					objE = d + ': ' + data[d] + '\n';
+				}
+				log(objE);
+			} else {
+				log(data);
+			}
+		}
+	} catch (err) {
+		let errMsg = '';
+		for (var e in err) {}
+			errMsg += e + ': ' + err[e] + '\n';
+		}
+		log(errMsg);
 }
 
 function postDate() {
