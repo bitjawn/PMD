@@ -5,7 +5,7 @@ const mongoose = require('mongoose'),
 var userSchema = new Schema({
     fname: {type: String, required: true},
     lname: {type: String, required: true},
-		uname: {type: String, required: true},
+		uname: {type: String, unique: true, required: true},
 		picture: {type: String, required: false},
     email: {type: String, required: true},
     password: {type: String, required: true},

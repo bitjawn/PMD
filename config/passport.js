@@ -42,7 +42,7 @@ passport.use('local.signup', new LocalStrategy({
 
 		if (user) {
 			if (user.uname == req.body.uname) {
-				return done(null, false, req.flash('errors', ['Username is already taken']));
+				return done(null, false, req.flash('errors', ['Username is already taken: ' + user.uname]));
 			} else if (user.email == req.body.email) {
 				return done(null, false, req.flash('errors', ['This email already exists']));
 			} else {
