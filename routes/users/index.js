@@ -16,10 +16,10 @@ router.get('/profile', isLoggedIn, (req, res) => {
 
 	res.render('users/profile', {
 		title:cfc(req.user.fname),
-		 fname:fname,
-		 lname:lname,
-		 uname:uname,
-		 email:email,
+		 fname:cfc(fname),
+		 lname:cfc(lname),
+		 uname:cfc(uname),
+		 email:cfc(email),
 		 picture:picture,
 		 greeting:greet
 		});
