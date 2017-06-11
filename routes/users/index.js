@@ -25,7 +25,6 @@ router.get('/profile', isLoggedIn, (req, res) => {
 		});
 });
 
-
 // logout
 router.get('/signout', csrfProtection, isLoggedIn, function(req, res){
 	req.logout();
@@ -72,8 +71,6 @@ router.post('/signup', csrfProtection, passport.authenticate('local.signup', {
     failureRedirect: '/users/signup',
     failureFlash: true
 }));
-
-
 
 module.exports = router;
 
