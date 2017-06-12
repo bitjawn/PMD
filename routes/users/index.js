@@ -38,13 +38,16 @@ router.get('/', notLoggedIn, (req, res, next) => {
 
 // signin
 router.get('/signin', csrfProtection, (req, res) => {
-	let messages = req.flash('errors') || [];
+	let errors = req.flash('errors') || [];
+	let success = req.flash('success') || [];
 
 	res.render('users/signin', {
 		title:cfc('signin'),
 		csrfToken:req.csrfToken(),
-		hasErrors:messages.length > 0,
-		errors:messages
+		hasErrors:errors.length > 0,
+		errors:errors,
+		hasSuccess:success.length > 0,
+		success:success
 	});
 });
 

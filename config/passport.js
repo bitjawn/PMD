@@ -60,6 +60,7 @@ passport.use('local.signup', new LocalStrategy({
 			if (err) {
 				return done(err);
 			}
+			req.flash('success', 'Registration was successful! You can now signin and out.')
 			return done(null, newUser);
 		});
 
