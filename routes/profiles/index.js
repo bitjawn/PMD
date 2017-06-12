@@ -39,15 +39,15 @@ router.get('/profile/:id', (req, res) => {
 		User.findById(prf.author, (err, user) => {
 			let profile = {};
 			profile.title = prf.title;
-			profile.user = user.fname + ' ' + user.lname;
-			profile.username = prf.username || '';
+			profile.user = cfc(user.fname) + ' ' + cfc(user.lname);
+			profile.username = cfc(prf.username) || '';
 			profile.password = prf.password || '';
-			profile.email = prf.email || '';
+			profile.email = cfc(prf.email) || '';
 			profile.url = prf.url || '';
 			profile.description = prf.description;
 			profile.postDate = prf.postDate;
 			profile.postTime = prf.postTime;
-			profile.organization = prf.organization;
+			profile.organization = cfc(prf.organization);
 			profile.id = prf.id;
 
 			res.render('profiles/profile', {title:cfc(profile.title), profile:profile});
